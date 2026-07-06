@@ -8,6 +8,7 @@
 # o cliente tudo que for recebido em uma conexão.
 
 import asyncio
+asyncio.set_event_loop(asyncio.new_event_loop())
 from camadafisica import PTY
 from tcp import Servidor   # copie o arquivo do Trabalho 2
 from ip import IP  # copie o arquivo do Trabalho 3
@@ -41,4 +42,8 @@ rede.definir_tabela_encaminhamento([
 ])
 servidor = Servidor(rede, 7000)
 servidor.registrar_monitor_de_conexoes_aceitas(conexao_aceita)
-asyncio.get_event_loop().run_forever()
+loop = asyncio.get_event_loop()
+try:
+    loop.run_forever()
+except KeyboardInterrupt:
+    pass
